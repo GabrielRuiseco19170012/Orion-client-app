@@ -1,0 +1,21 @@
+<div class="row" style="margin-top: -100px">
+  <div class="col">
+    <h1>Estuvo en tu puerta</h1>
+  </div>
+</div>
+<div style="display: flex">
+  <div *ngFor="let element of elements" >
+    <div class="card text-center text-light mx-4" style="background-color: teal; margin-top: 60px; width: 300px;">
+      <img src="{{imgs[elements.indexOf(element)]}}" class="card-img-top" alt="{{element.name}}" style="height: 300px; width: 300px;">
+      <div class="card-title mt-1">
+        <h3>Nombre: {{element.name}}</h3>
+        <p>Fecha: {{element.created_at}}</p>
+      </div>
+      <button class="btn form-control btn-outline-info text-light" [routerLink]="['/doorbell']">Register</button>
+      <button class="btn btn-outline-success form-control text-light" [routerLink]="['home']">Allow</button>
+      <button class="btn btn-outline-danger form-control text-light" [routerLink]="['home']">Dissmis</button>
+    </div>
+  </div>
+</div>
+
+

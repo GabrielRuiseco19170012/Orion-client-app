@@ -1,0 +1,17 @@
+
+.divRegistro, h5{
+  margin-top: 50px;
+  margin-bottom: 25px;
+  text-align: center;
+  color: dimgrey;
+}
+.divRegistro, button{
+  background-color: rgb(145, 102, 46);
+  color: #ffff ;
+  font-size: 16px;
+  border-radius: 25px ;
+  width: 200px;
+}
+.divRegistro{
+  border:2px solid deeppink;
+}

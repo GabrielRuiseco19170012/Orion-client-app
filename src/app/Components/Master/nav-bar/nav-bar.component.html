@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-md fixed-top bg-dark">
+  <div class="container text-success">
+    <div class="navbar-brand">
+      <a [routerLink]="['home']"> <img src="assets/img/cat_icon.png" style="width:40px; height:40px" alt="image"></a>
+      <a class="navbar-brand ml-1 text-success" [routerLink]="['home']">BlackCat SmartDoorBell</a>
+    </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon text-light">|||</span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link text-success" [routerLink]="['home']">Home</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active" *ngIf="auth.navItems()">
+          <a class="nav-link text-success" [routerLink]="['history']">History</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active" *ngIf="!auth.navItems()">
+          <a class="nav-link text-success" [routerLink]="['login']">Login</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active" *ngIf="!auth.navItems()">
+          <a class="nav-link text-success" [routerLink]="['register']">Register</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active" *ngIf="auth.navItems()">
+          <a (click)="logout()" class="nav-link text-success" [routerLink]="">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

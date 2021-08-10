@@ -1,0 +1,54 @@
+<div class="row justify-content-center" style="margin-top: -70px">
+  <div id="divRegistro" class="col-md-4 col-sm-6 divRegister">
+    <h1>Register</h1>
+    <form name="form" [formGroup]="form" (ngSubmit)="form.value && onSubmit()">
+      <div class="form-group">
+        <label for="">Nombre(s)</label>
+        <input type="text" class="form-control"
+               formControlName="name"
+               [ngClass]="{'is-invalid': form.get('name')?.touched && form.get('name')?.invalid}"
+               aria-describedby="" placeholder="">
+        <div *ngIf="form.get('name')?.touched && form.get('name')?.invalid" class="invalid-feedback">
+          <div *ngIf="form.get('name')?.errors?.required">El nombre es requerido</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="">Apellido(s)</label>
+        <input type="text" class="form-control" id=""
+               formControlName="last_name"
+               [ngClass]="{'is-invalid': form.get('last_name')?.touched && form.get('last_name')?.invalid}"
+               aria-describedby="" placeholder="">
+        <div *ngIf="form.get('last_name')?.touched && form.get('last_name')?.invalid" class="invalid-feedback">
+          <div *ngIf="form.get('last_name')?.errors?.required">El apellido es requerido</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="">Correo electrónico</label>
+        <input type="email" class="form-control"
+               formControlName="email"
+               [ngClass]="{'is-invalid': form.get('email')?.touched && form.get('email')?.invalid}"
+               aria-describedby="emailHelp" placeholder="example@example.com">
+        <div *ngIf="form.get('email')?.touched && form.get('email')?.invalid" class="invalid-feedback">
+          <div *ngIf="form.get('email')?.errors?.required">El email es requerido</div>
+          <div *ngIf="form.get('email')?.errors?.email">¡ El email debe ser una dirección válida !</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="">Contraseña</label>
+        <input type="password" class="form-control" id="psw"
+               formControlName="password"
+               [ngClass]="{'is-invalid': form.get('password')?.touched && form.get('password')?.invalid}"
+               placeholder="6 caracteres mínimo">
+        <div *ngIf="form.get('password')?.touched && form.get('password')?.invalid" class="invalid-feedback">
+          <div *ngIf="form.get('password')?.errors?.required">Contraseña requerida</div>
+          <div *ngIf="form.get('password')?.errors?.minlength">La contraseña deber ser mayor a 6 caractéres</div>
+        </div>
+      </div>
+      <div class="text-center">
+        <button [disabled]="!form.valid" class="btn btn-lg mt-2">
+          Registrarse
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
