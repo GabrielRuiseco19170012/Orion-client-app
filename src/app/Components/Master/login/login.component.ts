@@ -61,8 +61,28 @@ export class LoginComponent implements OnInit {
         }
       },
       error => {
-        if (error.status === 401) {
-          this.message = 'Usario no valido';
+        Swal.fire(
+          {
+            icon: 'error',
+            title: 'Invalido',
+            html: 'Usuario no autentificado',
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: () => {
+              Swal.showLoading();
+              this.timeInterval = setInterval(() => {
+              }, 100);
+            },
+            willClose: () => {
+              clearInterval(this.timeInterval);
+            }
+          }
+        ).then((result)=>{
+          if (result.dismiss === Swal.DismissReason.timer){
+            this.router.navigateByUrl('/login').then(()=>{});
+          }
+        });
+        if (error.status === 400 || error.status ===401) {
         }
       }
     );

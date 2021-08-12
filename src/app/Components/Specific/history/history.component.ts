@@ -19,7 +19,7 @@ export class HistoryComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.orion.facesIndex().subscribe(data => {
+    this.orion.accesIndex().subscribe(data => {
       this.elements = data
       for (const x of data) {
         this.imgs.push(environment.serverRoute+"serveFile?photo="+x.photo)

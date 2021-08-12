@@ -33,8 +33,8 @@ export class AuthService {
     );
   }
 
-  public isLoggedIn(): Observable<any> {
-    return this.http.post(environment.serverRoute + 'loginCheck','');
+  public isLoggedIn(): Observable<boolean> {
+    return this.http.post<boolean>(environment.serverRoute + 'loginCheck','');
   }
 
   public logout(): Observable<void> {
@@ -46,6 +46,10 @@ export class AuthService {
         this.router.navigateByUrl('/login').then()
       })
     );
+  }
+
+  public getToken(): string{
+    return this.cookieService.get('token')
   }
 
   public navItems(): boolean {
