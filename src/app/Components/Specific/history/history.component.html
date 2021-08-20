@@ -1,21 +1,68 @@
 <div class="row" style="margin-top: -100px">
-  <div class="col">
+  <div class="col text-light">
     <h1>Estuvo en tu puerta</h1>
   </div>
 </div>
-<div style="display: flex">
-  <div *ngFor="let element of elements" >
-    <div class="card text-center text-light mx-4 mb-4 shadow" style="background-color: teal; margin-top: 60px; width: 300px;">
-      <img src="{{imgs[elements.indexOf(element)]}}" class="card-img-top" alt="{{element.name}}" style="height: 300px; width: 300px;">
+<div class="row text-light">
+  <div class="col">
+    <p>En este apartado puedes registrar el acceso automatico de las personas, abrir la puerta, o eliminar la solicitud de acceso</p>
+  </div>
+</div>
+<div style="display: flex; flex-wrap: wrap">
+  <div *ngFor="let element of elements">
+    <div class="card text-center text-light mx-4 mb-4 shadow"
+         style="background-color: teal; margin-top: 60px; width: 300px;">
+      <img src="{{imgs[elements.indexOf(element)]}}" class="card-img-top" alt="{{element.name}}"
+           style="height: 300px; width: 300px;">
       <div class="card-title mt-1">
-        <h3>Nombre: {{element.name}}</h3>
         <p>Fecha: {{element.created_at}}</p>
       </div>
-      <button class="btn form-control btn-outline-info text-light" [routerLink]="['/doorbell']">Register</button>
-      <button class="btn btn-outline-success form-control text-light" [routerLink]="['home']">Allow</button>
-      <button class="btn btn-outline-danger form-control text-light" [routerLink]="['home']">Dissmis</button>
+      <button type="button" class="btn form-control btn-outline-info text-light" data-bs-toggle="modal"
+              data-bs-target="#registerModal" (click)="form.reset(); getElement(element)">Registrar
+      </button>
+      <button class="btn btn-outline-success form-control text-light" (click)="openAcces(element); this.selectedElement = element">
+        Abrir
+      </button>
+      <button class="btn btn-outline-danger form-control text-light"
+              (click)="dismiss(element)">Eliminar
+      </button>
     </div>
   </div>
 </div>
 
-
+<!-- Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Registrar acceso automatico</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form name="form" [formGroup]="form" (ngSubmit)="form.value && onSubmit()">
+          <div class="form-group">
+            <label>Nombre(s)</label>
+            <input type="text" class="form-control"
+                   formControlName="name"
+                   [ngClass]="{'is-invalid': form.get('name')?.touched && form.get('name')?.invalid}"
+                   aria-describedby="" placeholder="">
+            <div *ngIf="form.get('name')?.touched && form.get('name')?.invalid" class="invalid-feedback">
+              <div *ngIf="form.get('name')?.errors?.required">El nombre es requerido</div>
+            </div>
+            <select *ngFor="let set of sets" class="form-select" aria-label="Default select example" formControlName="id">
+              <option value="{{set.id}}">{{set.display_name}}</option>
+            </select>
+          </div>
+          <div class="text-center">
+            <button [disabled]="!form.valid" (click)="onSubmit();" class="btn btn-lg btn-info mt-2" data-bs-dismiss="modal">
+              Registrar
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

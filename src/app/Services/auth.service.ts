@@ -28,6 +28,7 @@ export class AuthService {
         const result: TokenResponse = data;
         if (result.token) {
           this.cookieService.set('token', result.token);
+          localStorage.setItem('email', user.email)
         }
       })
     );
@@ -54,5 +55,10 @@ export class AuthService {
 
   public navItems(): boolean {
     return this.cookieService.check('token');
+  }
+
+  public getUID(): Observable<string> {
+    const email = localStorage.getItem('email')
+    return this.http.get<string>(`${environment.serverRoute}uid?email=${email}`)
   }
 }

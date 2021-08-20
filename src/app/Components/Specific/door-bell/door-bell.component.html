@@ -1,29 +1,60 @@
-<div class="row">
-  <div class="col">
-    <div class="mb-3 form-check">
-      <input  class="form-check-input" type="checkbox" [(ngModel)]="isChecked" (change)="checkValue(isChecked?'true':'false')" />
-      <label class="form-check-label mx-1">Grant acces permission</label>
-    </div>
-    <form name="form" [formGroup]="form" (ngSubmit)="form.value && onSubmit()">
-      <div class="form-group">
-        <label>Nombre(s)</label>
-        <input type="text" class="form-control"
-               formControlName="name"
-               [ngClass]="{'is-invalid': form.get('name')?.touched && form.get('name')?.invalid}"
-               aria-describedby="" placeholder="">
-        <div *ngIf="form.get('name')?.touched && form.get('name')?.invalid" class="invalid-feedback">
-          <div *ngIf="form.get('name')?.errors?.required">El nombre es requerido</div>
-        </div>
-      </div>
-      <div class="text-center">
-        <button [disabled]="!form.valid" class="btn btn-lg btn-info mt-2">
-          Registrar
-        </button>
-      </div>
-    </form>
+<div class="row justify-content-between" style="margin-top: -100px">
+  <div class="col text-light">
+    <h1>Acceso automatico</h1>
   </div>
+</div>
+<div class="row text-light">
   <div class="col">
-    <h3>Acceso</h3>
+    <p>Para hacer uso de este apartado necesita creear un set de personas para guardar los accesos automaticos, presione crear set y dele un nombre</p>
+  </div>
+  <div class="col-3">
+    <button class="btn btn-primary" data-bs-toggle="modal"
+            data-bs-target="#createModal">Crear set</button>
+  </div>
+</div>
+<div style="display: flex; flex-wrap: wrap">
+  <div *ngFor="let element of elements">
+    <div class="card text-center text-light mx-4 mb-4 shadow"
+         style="background-color: teal; margin-top: 60px; width: 300px;">
+      <img src="{{imgs[elements.indexOf(element)]}}" class="card-img-top" alt="{{element.name}}"
+           style="height: 300px; width: 300px;">
+      <button class="btn btn-outline-danger form-control text-light"
+              (click)="dismiss(element)">Retirar acceso
+      </button>
+    </div>
   </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Crear set</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form name="form" [formGroup]="form" (ngSubmit)="form.value && onSubmit()">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" class="form-control"
+                   formControlName="name"
+                   [ngClass]="{'is-invalid': form.get('name')?.touched && form.get('name')?.invalid}"
+                   aria-describedby="" placeholder="">
+            <div *ngIf="form.get('name')?.touched && form.get('name')?.invalid" class="invalid-feedback">
+              <div *ngIf="form.get('name')?.errors?.required">El nombre es requerido</div>
+            </div>
+          </div>
+          <div class="text-center">
+            <button [disabled]="!form.valid" (click)="onSubmit()" class="btn btn-lg btn-info mt-2" data-bs-dismiss="modal">
+              Crear
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

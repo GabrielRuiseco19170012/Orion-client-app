@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'doorbell', component: DoorBellComponent },
+  { path: 'doorbell', component: DoorBellComponent, canActivate: [AuthGuard] },
   { path: 'history', component: HistoryComponent, canActivate: [AuthGuard] },
   { path: '**', pathMatch: 'full', component: WildCardComponent },
 ];
